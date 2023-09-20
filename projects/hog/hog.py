@@ -189,7 +189,6 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
             else:
                 who=0
         say=say(score0,score1)
-        
     # END PROBLEM 5
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 6
@@ -278,6 +277,17 @@ def announce_highest(who, last_score=0, running_high=0):
     assert who == 0 or who == 1, 'The who argument should indicate a player.'
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
+    def say(score0,score1):
+        if who==0:
+            score=score0
+        else:
+            score=score1
+        if score-last_score>running_high:
+            print(score-last_score,"point(s)! The most yet for Player",who)
+            return announce_highest(who,score,score-last_score)
+        else:
+            return announce_highest(who,score,running_high)
+    return say
     # END PROBLEM 7
 
 
@@ -318,6 +328,14 @@ def make_averaged(original_function, trials_count=1000):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    def average(*args):
+        i=1
+        sum=0
+        while i<=trials_count:
+            sum+=original_function(*args)
+            i+=1
+        return sum/trials_count
+    return average
     # END PROBLEM 8
 
 
@@ -332,6 +350,15 @@ def max_scoring_num_rolls(dice=six_sided, trials_count=1000):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
+    i=1
+    max=0
+    while i<=10:
+        a=make_averaged(roll_dice,trials_count)(i,dice)
+        if a>max:
+            max=a
+            num=i
+        i+=1
+    return num
     # END PROBLEM 9
 
 
